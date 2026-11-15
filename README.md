@@ -1,58 +1,41 @@
 # SMS Spam Detection Using Long Short-Term Memory (LSTM) Networks
 
-An academic NLP project that classifies SMS messages as **spam** or **ham** (legitimate) using a Keras LSTM network.
+An academic NLP project that classifies SMS messages as spam or ham using a TensorFlow/Keras LSTM network.
 
-## Project status
-Starter implementation. The model and metrics are produced when you train it; no accuracy result is claimed in advance.
+## Features
+- UCI SMS Spam Collection dataset (5,574 labelled messages).
+- Training-only tokenizer fitting and padded sequences.
+- Embedding + LSTM + Dropout + Dense binary classifier.
+- Stratified train/validation/test split and early stopping.
+- Streamlit dashboard with predictions, confidence estimate, recent history, dataset statistics and saved test metrics.
 
 ## Dataset
-Use the UCI SMS Spam Collection:
-https://archive.ics.uci.edu/dataset/228/sms+spam+collection
+Download: https://archive.ics.uci.edu/dataset/228/sms+spam+collection
+Extract SMSSpamCollection into data/SMSSpamCollection. The raw dataset is excluded from Git. See data/DATASET_SOURCE.md.
 
-Download the UCI ZIP, extract the file named `SMSSpamCollection`, and place it at `data/SMSSpamCollection`. The dataset ZIP has been checked: it contains 5,574 labelled SMS messages and the original corpus readme. The raw dataset is kept out of Git commits by `.gitignore`; each team member should download it from UCI and place it locally.
+## Setup (Windows PowerShell)
+Python 3.10 or 3.11 recommended.
 
-Labels: `ham` = legitimate (0), `spam` = spam (1).
-
-## Setup
-Python 3.10 or 3.11 is recommended.
-
-```bash
-python -m venv .venv
-# Windows: .venv\Scripts\activate
-# macOS/Linux: source .venv/bin/activate
-pip install -r requirements.txt
-```
+    python -m venv venv
+    venv\\Scripts\\Activate.ps1
+    python -m pip install -r requirements.txt
 
 ## Train and evaluate
+    python train.py
 
-```bash
-python train.py
-```
+Generated artifacts: models/sms_lstm.keras, models/tokenizer.joblib and models/metrics.json.
 
-The script loads and validates data, creates stratified train/validation/test splits, learns the tokenizer from training data only, trains an Embedding + LSTM classifier, reports accuracy/precision/recall/F1 and a confusion matrix, and saves the model and tokenizer under `models/`.
+Recorded test run (516 held-out messages): accuracy 99.03%, spam precision 98.36%, spam recall 93.75%, spam F1-score 96.00%. These are results from one split, not a guarantee of real-world performance.
 
-## Run the demo
+## Run the dashboard
+    streamlit run app.py
+Open the local URL shown by Streamlit (normally http://localhost:8501).
 
-```bash
-streamlit run app.py
-```
+## Documentation
+See docs/PROJECT_DOCUMENTATION.md for methodology, architecture, recorded results, limitations and references.
 
-Enter an SMS message to receive a spam/ham prediction and estimated spam probability.
+## Limitations
+The dataset is imbalanced. Consider precision, recall and F1 alongside accuracy. Model confidence is not calibrated certainty. The classifier uses text only and does not verify sender identity or URLs. It is an academic prototype, not a production spam filter.
 
-## Structure
-
-```text
-SMS-Spam-Detection-using-LSTM/
-├── data/                  # Put UCI SMSSpamCollection here (not committed)
-├── models/                # Generated model and tokenizer (not committed)
-├── app.py
-├── train.py
-├── requirements.txt
-└── README.md
-```
-
-## Reporting notes
-- Report the metrics produced by your own training run; do not invent or copy results.
-- Discuss class imbalance and include precision, recall, F1 and a confusion matrix, not accuracy alone.
-- Cite the UCI dataset and any papers or external code consulted.
-- The implementation is original starter code; cite external references you use.
+## Citation
+Almeida, T. A., Gómez Hidalgo, J. M., & Yamakami, T. (2011). Contributions to the Study of SMS Spam Filtering: New Collection and Results. Proceedings of the 2011 ACM Symposium on Document Engineering. Also cite the UCI dataset webpage.
