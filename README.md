@@ -9,7 +9,7 @@ Starter implementation. The model and metrics are produced when you train it; no
 Use the UCI SMS Spam Collection:
 https://archive.ics.uci.edu/dataset/228/sms+spam+collection
 
-Download the dataset, extract the file named `SMSSpamCollection`, and place it at `data/SMSSpamCollection`.
+Download the UCI ZIP, extract the file named `SMSSpamCollection`, and place it at `data/SMSSpamCollection`. The dataset ZIP has been checked: it contains 5,574 labelled SMS messages and the original corpus readme. The raw dataset is kept out of Git commits by `.gitignore`; each team member should download it from UCI and place it locally.
 
 Labels: `ham` = legitimate (0), `spam` = spam (1).
 
