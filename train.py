@@ -54,7 +54,7 @@ def load_dataset(path: Path) -> pd.DataFrame:
 def build_model(vocab_size: int) -> tf.keras.Model:
     model = Sequential([
         Embedding(input_dim=vocab_size, output_dim=EMBEDDING_DIM,
-                  input_length=MAX_LEN, mask_zero=True),
+                  mask_zero=True),
         LSTM(64, dropout=0.2),
         Dropout(0.3),
         Dense(32, activation="relu"),
